@@ -1,18 +1,16 @@
-"""
-Python code simulating Rock Paper Scissor game.
-"""
-
 from random import randint as rand
 items = ['가위', '바위', '보']
 win = 0
 lose = 0
+money = 30;
 
 class User(object):
 	"""This class represents a user with win, lose value"""
-	def __init__(self, lose, win, draw):
+	def __init__(self, lose, win, draw, money):
 		self.__lose = lose
 		self.__win = win
 		self.__draw = draw
+		self.__money = money
 
 	"""This method returns encapulsed win value
 
@@ -27,7 +25,7 @@ class User(object):
 
 	:returns: Integer draw value
 	"""
-	
+
 	@property
 	def draw(self):
 		return self.__draw
@@ -40,15 +38,25 @@ class User(object):
 	def lose(self):
 		return self.__lose
 
+	@property
+	def money(self):
+		return self.__money
+
 	"""This method is intended to increase win value by parameter v.
-	
+
 	:param int v: An integer value
 	"""
 	def addWin(self):
 		self.__win += 1
 
+	def addMoney(self, nowmoney):
+		self.__money += nowmoney
+
+	def minusMoney(self, nowmoney):
+		self.__money -= nowmoney
+
 	"""This method is intended to increase draw value by parameter v.
-	
+
 	:param int v: An integer value
 	"""
 
@@ -56,15 +64,15 @@ class User(object):
 		self.__draw += 1
 
 	"""This method is intended to increase lose value by parameter v.
-	
+
 	:param int v: An integer value
 	"""
 
 	def addLose(self):
 		self.__lose += 1
-	
 
-	
+
+
 """This function is intended to return the decesion by user
 
 :returns: User's input kwd, should be one of the items in list 'items'
@@ -105,26 +113,32 @@ def decide(user_hand, computer_hand):
 			elif computer_hand == '바위':
 				return 'W'
 
-person = User(0, 0, 0)
+person = User(0, 0, 0, 30)
 
 while person.win + person.lose != 10:
 	print(person.win + person.lose + 1, '번째 게임입니다.')
+	print("현재 코인 : ",person.money)
+	nowmoney = int(input("얼마를 거시겠습니까?"))
+
 	computer = items[rand(0, 2)]
 	user = get_user_input()
-
 	result = decide(user, computer)
-	
+
+
 	if result == 'L':
 		print("졌습니다.")
 		person.addLose()
+		person.minusMoney(nowmoney)
 	elif result == 'D':
 		print("비겼습니다.")
 		person.addDraw()
 	else:
 		print("이겼습니다.")
 		person.addWin()
+		person.addMoney(nowmoney)
 
 
 print("게임이 모두 끝났습니다.")
 print(person.win, "번 이겼습니다.")
 print(person.lose, "번 졌습니다.")
+print(person.money,"코인을 가지고 있습니다.")
