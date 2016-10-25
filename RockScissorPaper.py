@@ -1,7 +1,3 @@
-"""
-Python code simulating Rock Paper Scissor game.
-"""
-
 from random import randint as rand
 items = ['가위', '바위', '보']
 win = 0
@@ -29,7 +25,7 @@ class User(object):
 
 	:returns: Integer draw value
 	"""
-	
+
 	@property
 	def draw(self):
 		return self.__draw
@@ -47,7 +43,7 @@ class User(object):
 		return self.__money
 
 	"""This method is intended to increase win value by parameter v.
-	
+
 	:param int v: An integer value
 	"""
 	def addWin(self):
@@ -60,7 +56,7 @@ class User(object):
 		self.__money -= nowmoney
 
 	"""This method is intended to increase draw value by parameter v.
-	
+
 	:param int v: An integer value
 	"""
 
@@ -68,15 +64,15 @@ class User(object):
 		self.__draw += 1
 
 	"""This method is intended to increase lose value by parameter v.
-	
+
 	:param int v: An integer value
 	"""
 
 	def addLose(self):
 		self.__lose += 1
-	
 
-	
+
+
 """This function is intended to return the decesion by user
 
 :returns: User's input kwd, should be one of the items in list 'items'
@@ -122,6 +118,7 @@ person = User(0, 0, 0, 30)
 while person.win + person.lose != 10:
 	print(person.win + person.lose + 1, '번째 게임입니다.')
 	print("현재 코인 : ",person.money)
+	nowmoney = int(input("얼마를 거시겠습니까?"))
 
 	computer = items[rand(0, 2)]
 	user = get_user_input()
@@ -131,14 +128,14 @@ while person.win + person.lose != 10:
 	if result == 'L':
 		print("졌습니다.")
 		person.addLose()
-		person.minusMoney(2)
+		person.minusMoney(nowmoney)
 	elif result == 'D':
 		print("비겼습니다.")
 		person.addDraw()
 	else:
 		print("이겼습니다.")
 		person.addWin()
-		person.addMoney(2)
+		person.addMoney(nowmoney)
 
 
 print("게임이 모두 끝났습니다.")
