@@ -131,12 +131,14 @@ while person.win + person.lose != 10:
 	if result == 'L':
 		print("졌습니다.")
 		person.addLose()
+		person.minusMoney(2)
 	elif result == 'D':
 		print("비겼습니다.")
 		person.addDraw()
 	else:
 		print("이겼습니다.")
 		person.addWin()
+		person.addMoney(2)
 
 
 print("게임이 모두 끝났습니다.")
